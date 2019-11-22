@@ -11,18 +11,26 @@ class Genre(models.Model):
     genreNm = models.CharField(max_length=150)
 
 
+class Actor(models.Model):
+    name = models.CharField(max_length=50)
+
+
+class Director(models.Model):
+    name = models.CharField(max_length=50)
+
+
 class Movie(models.Model):
     movieCd = models.CharField(max_length=20)
     title = models.CharField(max_length=150)
     description = models.TextField()
     image = models.CharField(max_length=150)
-    directors = models.CharField(max_length=100)
-    actors = models.CharField(max_length=100)
     pubdate = models.CharField(max_length=12)
     score = models.DecimalField(
         max_digits=4,
         decimal_places=2,
     )
+    directors = models.ManyToManyField(Director, related_name="movies")
+    actors = models.ManyToManyField(Actor, related_name="movies")
     genres = models.ManyToManyField(Genre, related_name="movies")
     like_users = models.ManyToManyField(User, related_name="like_movies")
     
