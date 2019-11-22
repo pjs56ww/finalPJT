@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,7 +33,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Local apps
-    'accounts',
     'movies',
 
     # Third party apps
@@ -165,5 +165,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# 앞으로 accounts 에 정의한 User 모델을 기본 user 모델로 사용
-AUTH_USER_MODEL = 'accounts.User'
+# 앞으로 movies 에 정의한 User 모델을 기본 user 모델로 사용
+AUTH_USER_MODEL = 'movies.User'
