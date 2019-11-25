@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <h1>hi</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <a href="#">JSPark's Movie</a>
+    </nav>
+
   </div>
 </template>
 
@@ -13,6 +16,7 @@ import router from '@/router'
 export default {
   name: 'Home',
   components: {
+
   },
   data() {
     return {
