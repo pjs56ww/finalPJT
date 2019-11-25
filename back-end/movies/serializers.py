@@ -25,22 +25,29 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    movies = MovieSerializer(many=true)
+    movie = MovieSerializer()
     user = UserDetailSerializer()
     class Meta:
         model = Comment
-        fields = ('id',)
+        fields = ('id', 'content', 'score', 'movie', 'user',)
 
 
 class GenreSerializer(serializers.ModelSerializer):
     movies = MovieSerializer(many=true)
     class Meta:
         model = Genre
-        fields = ('id',)
+        fields = ('id', 'genreNm', 'movies',)
 
 
 class ActorSerializer(serializers.ModelSerializer):
     movies = MovieSerializer(many=true)
     class Meta:
         model = Actor
-        fields = ('id', )
+        fields = ('id', 'name', 'movies',)
+
+
+class DirectorSerializer(serializers.ModelSerializer):
+    movies = MovieSerializer(many=true)
+    class Meta:
+        model = Director
+        fields = ('id', 'name', 'movies',)

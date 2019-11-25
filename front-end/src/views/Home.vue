@@ -1,18 +1,62 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>hi</h1>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import axios from 'axios'
+// import jwtDecode from 'jwt-decode' // JWT 의 payload 값을 해석해서 보여주는 library
+import { mapGetters } from 'vuex'
+import router from '@/router'
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
-    HelloWorld
+  },
+  data() {
+    return {
+      todos: [],
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'isLoggedIn',
+      'options',
+      'userId'
+    ])
+  },
+  methods: {
+    // 사용자 로그인 유무를 확인하여 로그인 되어있지 않을 시 로그인 페이지로 보내겠다.
+    checkLoggedIn() {
+      // // 1. 세션을 시작해서 
+      // this.$session.start()
+
+      // // 2. 'jwt' 가 있는지 확인하겠다.
+      // if (!this.$session.has('jwt')) {
+      //   // 없다면 로그인 페이지로 보내겠다.
+      //   router.push('/login')
+      // }
+      if (!this.isLoggedIn) {
+        router.push('/login')
+      }
+    },
+  },
+  // Vue 가 화면에 그려지면 실행하는 함수
+  mounted() {
+    // this.checkLoggedIn()
+    if (this.isLoggedIn) {
+      console.log(this.isLoggedIn)
+    }
+  },
+  watch: {
+    isLoggedIn() {
+      this.checkLoggedIn()
+    },
   }
 }
 </script>
+
+<style>
+
+</style>

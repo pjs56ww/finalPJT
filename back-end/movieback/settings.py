@@ -37,7 +37,15 @@ INSTALLED_APPS = [
 
     # Third party apps
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
+
+    'rest_auth',
+    'rest_auth.registration',
+    
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 
     # Django apps
     'django.contrib.admin',
@@ -46,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 # http://jpadilla.github.io/django-rest-framework-jwt/#usage

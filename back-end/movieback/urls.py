@@ -15,10 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-token-auth/', obtain_jwt_token),
     path('api/v1/', include('movies.urls')),
+    path('api-token-auth/', obtain_jwt_token),
+    path('api-auth/', include('rest_framework.urls')),
+    #login, registration등 path 설정
+    path('api/v1/rest-auth/', include('rest_auth.urls')),
+    # 토큰 발급 및 재발급 페이지 설정
+    path('api/v1/rest-auth/obtain_token/', obtain_jwt_token, name='obtain-jwt'),
+    path('api/v1/rest-auth/refresh_token/', refresh_jwt_token, name='refresh-jwt'),
+    path('api/v1/rest-auth/registration/', include('rest_auth.registration.urls')),
+
 ]
