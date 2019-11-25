@@ -27,24 +27,35 @@ for movie_data in movie_datas:
     API_URL_NAVER = f'{BASE_URL_NAVER}?query={title}'
     response = requests.get(API_URL_NAVER, headers = HEADERS)
     data = response.json()
-    try:
+
+    if len(data['items']) >= 1:
         # 줄거리
+        paragraph_data_header = ""
+        paragraph_data_body = ""
+
         with urllib.request.urlopen(data['items'][0]['link']) as response:
             html = response.read()
             soup = BeautifulSoup(html, 'html.parser')
-            paragraph_data_header = soup.find_all('h5', class_='h_tx_story').get_text()
-            paragraph_data_body = soup.find_all('p', class_='con_tx').get_text()
-            
+            try:
+                paragraph_data_header = soup.find('h5', class_='h_tx_story').get_text()
+            except:
+                pass
+            try:
+                paragraph_data_body = soup.find('p', class_='con_tx').get_text()
+            except:
+                pass
             movie_datas[movie_data]['description'] = [paragraph_data_header, paragraph_data_body]
-        print(movie_datas[movie_data]['description'])
-        
+
+
         # 이미지 url
         movie_datas[movie_data]['image'] = data['items'][0]['image']
-        
+
+
         # 감독정보
         directors = list(map(str, data['items'][0]['director'].split('|')))
         directors.pop()
         movie_datas[movie_data]['directors'] = directors
+
         
         #배우정보
         actors = list(map(str, data['items'][0]['actor'].split('|')))
@@ -70,9 +81,8 @@ for movie_data in movie_datas:
         data = response.json()
         for a in data['movieInfoResult']['movieInfo']['genres']:
             movie_datas[movie_data]['genres'].append(a['genreNm'])
-    
-    except:
-        pass
+    else:
+        print(movie_data)
       
-# with open('movies_final.json', 'w',  encoding = 'utf-8') as make_file:
-#     json.dump(movie_datas, make_file, ensure_ascii=False, indent="\t")
+with open('movies_final.json', 'w',  encoding = 'utf-8') as make_file:
+    json.dump(movie_datas, make_file, ensure_ascii=False, indent="\t")
