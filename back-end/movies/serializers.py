@@ -17,8 +17,22 @@ class FollowerSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    like_movies = MovieSerializer(many=true)
-    followers = FollowerSerializer(many=true)
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password')
+
+    def create(self, validated_data):
+        user = User(
+            username=validated_data['username'],
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    like_movies = MovieSerializer(many=True)
+    followers = FollowerSerializer(many=True)
     class Meta:
         model = User
         fields = ('id', 'username', 'like_movies', 'followers')
@@ -26,28 +40,30 @@ class UserSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     movie = MovieSerializer()
-    user = UserDetailSerializer()
+    user = UserSerializer()
     class Meta:
         model = Comment
         fields = ('id', 'content', 'score', 'movie', 'user',)
 
 
 class GenreSerializer(serializers.ModelSerializer):
-    movies = MovieSerializer(many=true)
+    movies = MovieSerializer(many=True)
     class Meta:
         model = Genre
         fields = ('id', 'genreNm', 'movies',)
 
 
 class ActorSerializer(serializers.ModelSerializer):
-    movies = MovieSerializer(many=true)
+    movies = MovieSerializer(many=True)
     class Meta:
         model = Actor
         fields = ('id', 'name', 'movies',)
 
 
 class DirectorSerializer(serializers.ModelSerializer):
-    movies = MovieSerializer(many=true)
+    movies = MovieSerializer(many=True)
     class Meta:
         model = Director
         fields = ('id', 'name', 'movies',)
+
+        
