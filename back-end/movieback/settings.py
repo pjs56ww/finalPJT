@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
 
-    'rest_auth',
-    'rest_auth.registration',
+    # 'rest_auth',
+    # 'rest_auth.registration',
     
     'allauth',
     'allauth.account',
@@ -176,3 +176,5 @@ STATIC_URL = '/static/'
 
 # 앞으로 movies 에 정의한 User 모델을 기본 user 모델로 사용
 AUTH_USER_MODEL = 'movies.User'
+
+SITE_ID = 1
