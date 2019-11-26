@@ -42,3 +42,16 @@ def comment_create(request, movie_pk):
     if serializer.is_valid(raise_exception=True):
         serializer.save(movie_id=movie_pk, user_id=user_id)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def search(request):
+    keyword = request.GET.get('keyword', '')
+
+    movies = Movie.objects.all()
+
+    if keyword:
+        movies = movies.filter(title__icontains=keyword)
+    serializer = MovieSerializer(many=True, instance=movies)
+    return Response(serializer.data)
