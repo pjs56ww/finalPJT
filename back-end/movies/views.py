@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .models import User, Movie
-from .serializers import UserSerializer, MovieSerializer
+from .models import User, Movie, Comment
+from .serializers import UserSerializer, MovieSerializer, CommentSerializer, CommentCreateSerializer
 from rest_framework.permissions import AllowAny
 
 
@@ -31,4 +31,14 @@ def home(request):
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     serializer = MovieSerializer(instance=movie)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def comment_create(request, movie_pk):
+    # view
+    serializer = CommentCreateSerializer(data=request.data)
+    user_id = request.data.get('user_id')
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(movie_id=movie_pk, user_id=user_id)
     return Response(serializer.data)
