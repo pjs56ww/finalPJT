@@ -55,3 +55,17 @@ def search(request):
         movies = movies.filter(title__icontains=keyword)
     serializer = MovieSerializer(many=True, instance=movies)
     return Response(serializer.data)
+
+
+@api_view(['PUT', 'DELETE'])
+def comment_update_delete(request, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if request.method == 'PUT':
+        serializer = CommentCreateSerializer(instance=comment, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+    if request.method == 'DELETE':
+        comment.delete()
+        # 요청에 성공했지만 컨텐츠는 없다는걸 알려주는 status code
+        return Response(status=204)
