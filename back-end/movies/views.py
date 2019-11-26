@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -23,4 +23,12 @@ def home(request):
     movies = movies[0:10]
     movies = sorted(movies, key=lambda movie: -movie.score)
     serializer = MovieSerializer(many=True, instance=movies)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def movie_detail(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    serializer = MovieSerializer(instance=movie)
     return Response(serializer.data)
