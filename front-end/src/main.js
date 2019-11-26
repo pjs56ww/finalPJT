@@ -8,8 +8,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from './store'
 import axios from 'axios'
 
+import Carousel3d from 'vue-carousel-3d'
+
+
 Vue.use(BootstrapVue)
 Vue.use(VueSession)
+Vue.use(Carousel3d)
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
