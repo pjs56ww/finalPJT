@@ -1,11 +1,9 @@
 <template>
-  <div class="movieCarousel">
-    <carousel-3d :autoplay="true" :autoplay-timeout="5000" :display="7" :width="200">
-      <slide v-for="(movie, i) in movies" :index="i" :key="i">
-        <MovieCard :movie="movie" />
-      </slide>
-    </carousel-3d>
-  </div>
+  <carousel-3d :autoplay="true" :autoplay-timeout="5000" :display="10" :width="200" :controls-visible="true">
+    <slide v-for="(movie, i) in movies" :index="i" :key="i">
+      <MovieCard :movie="movie" />
+    </slide>
+  </carousel-3d>
 </template>
 
 <script>
@@ -18,6 +16,11 @@ export default {
     movies: {
       type: Array,
       required: true,
+    }
+  },
+  data() {
+    return {
+      slides: 10,
     }
   },
   components: {

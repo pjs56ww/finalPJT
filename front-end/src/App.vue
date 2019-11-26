@@ -20,13 +20,10 @@
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <!-- <b-nav-form>
+            <b-nav-form @submit.prevent="getMovies">
               <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="searchKeyword"></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" @click="getMovies">Search</b-button>
-            </b-nav-form> -->
-            <div class="">
-              <input type="text"><button @click="getMovies">검색</button>
-            </div>
+              <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+            </b-nav-form>
 
             <b-nav-item-dropdown right>
               <!-- Using 'button-content' slot -->
@@ -46,7 +43,7 @@
       </b-navbar>
     </div>
     <div>
-      <router-view />
+      <router-view :movies="movies"/>
     </div>
   </div>
 </template>
@@ -95,6 +92,7 @@ export default {
       })
         .then(response => {
           this.movies = response.data
+          router.push("/search").catch(err => err)
           this.searchKeyword = ''
         })
         .catch(error => {

@@ -1,17 +1,28 @@
 <template>
   <div>
-    안녕
+    <div v-if="movies.length">
+      <div v-for="movie in movies" :key="movie.movieCd">
+        <MovieCard :movie="movie" />
+      </div>
+    </div>
+    <div v-else>
+      <p>검색결과가 없습니다.</p>
+    </div>
   </div>
 </template>
 
 <script>
+import MovieCard from '@/components/MovieCard'
 export default {
   name: 'Search',
-  // props: {
-  //   movies: {
-  //     type: Array
-  //   }
-  // }
+  components: {
+    MovieCard,
+  },
+  props: {
+    movies: {
+      type: Array
+    }
+  }
 }
 </script>
 

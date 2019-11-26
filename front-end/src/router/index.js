@@ -33,11 +33,6 @@ const routes = [
     path: '/search',
     name: 'search',
     component: Search,
-    props: {
-      movies: {
-        type: Array,
-      }
-    }
   }
 ]
 

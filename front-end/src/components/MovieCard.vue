@@ -1,6 +1,6 @@
 <template>
   <div class="movieCard">
-    <img :src="movie.image" alt="">
+    <img :src="movie.image" alt="" :width="200">
   </div>
 </template>
 
@@ -12,7 +12,11 @@ export default {
       type: Object,
       required: true,
     }
-  }
+  },
+  data() {
+    return {
+    }
+  },
 }
 </script>
 
