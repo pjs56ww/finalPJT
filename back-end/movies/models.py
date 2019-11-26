@@ -33,6 +33,7 @@ class Movie(models.Model):
     actors = models.ManyToManyField(Actor, related_name="movies")
     genres = models.ManyToManyField(Genre, related_name="movies")
     like_users = models.ManyToManyField(User, related_name="like_movies")
+    backgroundImage = models.CharField(max_length=150)
     
 
 class Comment(models.Model):
