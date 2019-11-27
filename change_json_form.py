@@ -23,7 +23,8 @@ for movie_data in movie_datas:
             'title': '',
             'description': '',
             'image': '',
-            'pubdate': '',
+            'openDt': '',
+            'audiAcc': '',
             'score': '',
             'directors': [],
             'actors': [],
@@ -37,7 +38,8 @@ for movie_data in movie_datas:
     else:
         a["fields"]["description"] = movie_datas[movie_data]["description"][1]
     a["fields"]["image"] = movie_datas[movie_data]["image"]
-    a["fields"]["pubdate"] = movie_datas[movie_data]["pubdate"]
+    a["fields"]["openDt"] = movie_datas[movie_data]["openDt"]
+    a["fields"]["audiAcc"] = movie_datas[movie_data]["audiAcc"]
     a["fields"]["score"] = movie_datas[movie_data]["score"]
     
     # 감독이 감독 DB에 존재하는지 확인 후 없으면 추가
