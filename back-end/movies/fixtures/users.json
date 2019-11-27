@@ -1,0 +1,21 @@
+[
+  {
+    "model": "movies.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$ajoEczwoh0D8$oI98KaX/UnrTgdr/d3c97ee5VhPaljLlQyKLpRpnfzE=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "JS",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-11-27T02:16:35.450Z",
+      "groups": [],
+      "user_permissions": [],
+      "followers": []
+    }
+  }
+]
