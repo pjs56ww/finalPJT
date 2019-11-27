@@ -6,8 +6,8 @@
       <span class="badge badge-info">{{ movie.score }}</span>
     </h4>
     <hr />
-    <p class="card-text">{{ movie.genres }}</p>
-    <p class="card-text">개봉: {{ movie.pubdate }}</p>
+    <p class="card-text">{{ movieGenre.join(', ') }}</p>
+    <p class="card-text">개봉: {{ movie.openDt }}</p>
   </div>
 </template>
 
@@ -18,6 +18,19 @@ export default {
     movie: {
       type: Object,
       required: true,
+    },
+    genres: {
+      type: Array,
+    }
+  },
+  data() {
+    return {
+      movieGenre: []
+    }
+  },
+  created() {
+    for (const genre of this.movie.genres) {
+      this.movieGenre.push(this.genres[genre - 1].text)
     }
   }
 };

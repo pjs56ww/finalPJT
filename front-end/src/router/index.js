@@ -5,6 +5,7 @@ import Login from '@/views/Login.vue' // @ => src 폴더
 import Signup from '@/views/Signup.vue'
 import Welcome from '@/views/Welcome.vue'
 import Search from '@/views/Search.vue'
+import MovieDetail from '@/components/MovieDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/search',
     name: 'search',
     component: Search,
+  },
+  {
+    path: '/movie/:id',
+    name: 'movieDetail',
+    component: MovieDetail,
   }
 ]
 

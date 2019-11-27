@@ -14,11 +14,11 @@ import HomeImage from '@/components/HomeImage'
 import { mapGetters } from 'vuex'
 // import { Carousel3d, Slide } from 'vue-carousel-3d'
 
-const getRandomInt = function(min, max) {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min)) + min
-}
+// const getRandomInt = function(min, max) {
+//   min = Math.ceil(min)
+//   max = Math.floor(max)
+//   return Math.floor(Math.random() * (max - min)) + min
+// }
 
 export default {
   name: 'Home',
@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       movies: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+      randNum: 0,
       bgImage: ''
     }
   },
@@ -54,7 +55,7 @@ export default {
       // }
       if (!this.isLoggedIn) {
         console.log(this.isLoggedIn)
-        router.push('/login')
+        router.push('/')
       }
     },
     getMovie() {
@@ -63,7 +64,6 @@ export default {
         .then(response => {
           // console.log(response)
           this.movies = response.data
-          this.bgImage = this.movies[getRandomInt(0, 10)].backgroundImage
         })
         .catch(error => {
           console.error(error)
@@ -71,7 +71,7 @@ export default {
     }
   },
   // Vue 가 화면에 그려지면 실행하는 함수
-  mounted: function () {
+  mounted() {
     this.$nextTick(function () {
       this.getMovie()
     })

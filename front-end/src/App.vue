@@ -10,7 +10,7 @@
           <b-nav-item-dropdown dropright text="장르별">
             <b-dropdown-item v-for="option in genreSelect.options" 
                               :key="option.value"
-                              @click="genreSelect.genreSelectedOption = option.value"
+                              @click="genreSelect.genreSelectedOption = option.value, byGenre = option.text"
                               @click.prevent="searchByGenre" href="/serch">
               {{ option.text }}
             </b-dropdown-item>
@@ -40,7 +40,7 @@
       </b-collapse>
     </b-navbar>
     <div>
-      <router-view :movies="movies" :byGenre="byGenre" />
+      <router-view :movies="movies" :byGenre="byGenre" :genres="genreSelect.options" />
     </div>
   </div>
 </template>
@@ -60,9 +60,9 @@ export default {
     return {
       searchKeyword: "",
       movies: [],
-      byGenre: false,
+      byGenre: '',
       genreSelect: {
-        genreSelectedOption: null,
+        genreSelectedOption: 0,
         options: [
           {
             value: "1",
@@ -74,7 +74,7 @@ export default {
           },
           {
             value: "3",
-            text: "판타지"
+            text: "애니메이션"
           },
           {
             value: "4",
@@ -82,15 +82,15 @@ export default {
           },
           {
             value: "5",
-            text: "어드벤처"
+            text: "가족"
           },
           {
             value: "6",
-            text: "SF"
+            text: "판타지"
           },
           {
             value: "7",
-            text: "애니메이션"
+            text: "미스터리"
           },
           {
             value: "8",
@@ -102,27 +102,27 @@ export default {
           },
           {
             value: "10",
-            text: "가족"
+            text: "어드벤쳐"
           },
           {
             value: "11",
-            text: "뮤지컬"
+            text: "SF"
           },
           {
             value: "12",
-            text: "미스터리"
-          },
-          {
-            value: "13",
             text: "공연"
           },
           {
-            value: "14",
+            value: "13",
             text: "멜로/로맨스"
           },
           {
-            value: "15",
+            value: "14",
             text: "공포(호러)"
+          },
+          {
+            value: "15",
+            text: "뮤지컬"
           },
           {
             value: "16",
@@ -174,9 +174,10 @@ export default {
           }
         })
         .then(response => {
+          this.byGenre = ''
           this.movies = response.data;
-          router.push("/search").catch(err => err);
-          this.searchKeyword = "";
+          router.push("/search").catch(err => err)
+          this.searchKeyword = ''
         })
         .catch(error => {
           console.error(error);

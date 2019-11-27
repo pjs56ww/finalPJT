@@ -20,7 +20,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" class="form-control" placeholder="Password" v-model="credentials.password">
       </div>
-      <button class="btn btn-success" @click="login">Login</button>
+      <button class="btn btn-success" @click="login">로그인</button> <button class="btn btn-dark" @click="goSignup">회원가입</button>
     </div>
   </div>
 </template>
@@ -80,6 +80,9 @@ export default {
         return true
       } // else => undefined
     },
+    goSignup() {
+      router.push('/signup')
+    }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SignupForm />
+    <SignupForm class="container" />
   </div>
 </template>
 
