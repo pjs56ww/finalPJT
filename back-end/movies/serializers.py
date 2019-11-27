@@ -30,20 +30,22 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class UserDetailSerializer(serializers.ModelSerializer):
-    like_movies = MovieSerializer(many=True)
-    followers = FollowerSerializer(many=True)
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'like_movies', 'followers')
-
-
 class CommentSerializer(serializers.ModelSerializer):
     movie = MovieSerializer()
     user = UserSerializer()
+    
     class Meta:
         model = Comment
         fields = ('id', 'content', 'score', 'movie', 'user',)
+        
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    like_movies = MovieSerializer(many=True)
+    followers = FollowerSerializer(many=True)
+    comments = CommentSerializer(many=True)
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'like_movies', 'followers', 'comments')
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):

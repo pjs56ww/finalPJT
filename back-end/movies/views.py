@@ -3,7 +3,7 @@ from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .models import User, Movie, Comment, Genre, Actor, Director
-from .serializers import UserSerializer, MovieSerializer, CommentSerializer, CommentCreateSerializer, GenreSerializer, ActorSerializer, DirectorSerializer
+from .serializers import UserSerializer, MovieSerializer, CommentSerializer, CommentCreateSerializer, GenreSerializer, ActorSerializer, DirectorSerializer, UserDetailSerializer
 from rest_framework.permissions import AllowAny
 
 
@@ -78,7 +78,7 @@ def genredb(request, genre_pk):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes([AllowAny])
 def actordb(request, actor_pk):
     actor = get_object_or_404(Actor, pk=actor_pk)
@@ -86,9 +86,25 @@ def actordb(request, actor_pk):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes([AllowAny])
 def directordb(request, director_pk):
     director = get_object_or_404(Director, pk=director_pk)
     serializer = DirectorSerializer(instance=director)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def userdetaildb(request, user_pk):
+    user = get_object_or_404(User, pk=user_pk)
+    serializer = UserDetailSerializer(instance=user)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def userdetaildball(request):
+    users = User.objects.all()
+    serializer = UserDetailSerializer(many=True, instance=users)
     return Response(serializer.data)
