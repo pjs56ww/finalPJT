@@ -24,7 +24,8 @@ class Movie(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()
     image = models.CharField(max_length=150)
-    pubdate = models.CharField(max_length=12)
+    openDt = models.CharField(max_length=12)
+    audiAcc = models.IntegerField()
     score = models.DecimalField(
         max_digits=4,
         decimal_places=2,
