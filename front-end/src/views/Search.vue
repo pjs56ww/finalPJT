@@ -1,9 +1,7 @@
 <template>
   <div>
     <div v-if="movies.length">
-      <div v-for="movie in movies" :key="movie.movieCd">
-        <MovieCard :movie="movie" />
-      </div>
+      <MovieList :movies="movies" class="container mx-auto" />
     </div>
     <div v-else>
       <p>검색결과가 없습니다.</p>
@@ -12,11 +10,11 @@
 </template>
 
 <script>
-import MovieCard from '@/components/MovieCard'
+import MovieList from '@/components/MovieList'
 export default {
   name: 'Search',
   components: {
-    MovieCard,
+    MovieList,
   },
   props: {
     movies: {

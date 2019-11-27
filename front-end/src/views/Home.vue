@@ -1,12 +1,7 @@
 <template>
   <div class="home">
-    <HomeImage :movies="movies" />
+    <HomeImage :bgImage="bgImage" />
     <MovieCarousel :movies="movies" />
-    <!-- <carousel-3d :autoplay="true" :autoplay-timeout="5000" :display="5" :width="200">
-      <slide v-for="(movie, i) in movies" :index="i" :key="i">
-        <img :src="movie.image" alt="">
-      </slide>
-    </carousel-3d> -->
   </div>
 </template>
 
@@ -19,6 +14,12 @@ import HomeImage from '@/components/HomeImage'
 import { mapGetters } from 'vuex'
 // import { Carousel3d, Slide } from 'vue-carousel-3d'
 
+const getRandomInt = function(min, max) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min)) + min
+}
+
 export default {
   name: 'Home',
   components: {
@@ -30,6 +31,7 @@ export default {
   data() {
     return {
       movies: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+      bgImage: ''
     }
   },
   computed: {
@@ -61,6 +63,7 @@ export default {
         .then(response => {
           // console.log(response)
           this.movies = response.data
+          this.bgImage = this.movies[getRandomInt(0, 10)].backgroundImage
         })
         .catch(error => {
           console.error(error)
@@ -68,11 +71,10 @@ export default {
     }
   },
   // Vue 가 화면에 그려지면 실행하는 함수
-  mounted() {
-    // this.checkLoggedIn()
-    if (this.isLoggedIn) {
+  mounted: function () {
+    this.$nextTick(function () {
       this.getMovie()
-    }
+    })
   },
   watch: {
     isLoggedIn() {

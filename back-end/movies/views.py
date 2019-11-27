@@ -71,7 +71,7 @@ def comment_update_delete(request, comment_pk):
         return Response(status=204)
 
 
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes([AllowAny])
 def genredb(request, genre_pk):
     genre = get_object_or_404(Genre, pk=genre_pk)

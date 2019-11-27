@@ -1,7 +1,5 @@
 <template>
-  <div class="movieCard">
-    <img :src="movie.image" alt="" :width="200">
-  </div>
+  <img :src="movie.image" :alt="movie.title" />
 </template>
 
 <script>
