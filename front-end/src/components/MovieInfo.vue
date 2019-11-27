@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h4 class="card-title">
+    <h5 class="card-title">
       {{ movie.title }}
       <br />
       <span class="badge badge-info">{{ movie.score }}</span>
-    </h4>
+    </h5>
     <hr />
     <p class="card-text">{{ movieGenre.join(', ') }}</p>
     <p class="card-text">개봉: {{ movie.openDt }}</p>

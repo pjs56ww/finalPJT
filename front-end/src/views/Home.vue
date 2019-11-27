@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <HomeImage :bgImage="bgImage" />
+    <div>
+      <b-img :src="bgImage" alt="" fluid />
+    </div>
     <MovieCarousel :movies="movies" />
   </div>
 </template>
@@ -9,16 +11,11 @@
 import axios from 'axios'
 import router from '@/router'
 import MovieCarousel from '@/components/MovieCarousel'
-import HomeImage from '@/components/HomeImage'
+// import HomeImage from '@/components/HomeImage'
 // import jwtDecode from 'jwt-decode' // JWT 의 payload 값을 해석해서 보여주는 library
 import { mapGetters } from 'vuex'
 // import { Carousel3d, Slide } from 'vue-carousel-3d'
 
-// const getRandomInt = function(min, max) {
-//   min = Math.ceil(min)
-//   max = Math.floor(max)
-//   return Math.floor(Math.random() * (max - min)) + min
-// }
 
 export default {
   name: 'Home',
@@ -26,12 +23,12 @@ export default {
     // 'carousel-3d': Carousel3d.Carousel3d,
     // 'slide': Carousel3d.Slide,
     MovieCarousel,
-    HomeImage,
+    // HomeImage,
   },
   data() {
     return {
+      allMovies: [],
       movies: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-      randNum: 0,
       bgImage: ''
     }
   },
@@ -68,13 +65,38 @@ export default {
         .catch(error => {
           console.error(error)
         })
+    },
+    getBgImg() {
+      const getRandomInt = function(min, max) {
+        min = Math.ceil(min)
+        max = Math.floor(max)
+        return Math.floor(Math.random() * (max - min)) + min
+      }
+      const SERVER_IP = process.env.VUE_APP_SERVER_IP;
+      axios
+        .get(`${SERVER_IP}/api/v1/search/`, {
+          params: {
+            keyword: ''
+          }
+        })
+        .then(response => {
+          this.allMovies = response.data
+          const randNum = getRandomInt(0, this.allMovies.length)
+          this.bgImage = this.allMovies[randNum].backgroundImage
+        })
+        .catch(error => {
+          console.error(error);
+        })
+      
     }
+  },
+  created() {
+    
   },
   // Vue 가 화면에 그려지면 실행하는 함수
   mounted() {
-    this.$nextTick(function () {
-      this.getMovie()
-    })
+    this.getMovie()
+    this.getBgImg()
   },
   watch: {
     isLoggedIn() {

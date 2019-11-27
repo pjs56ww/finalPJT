@@ -40,7 +40,8 @@
       </b-collapse>
     </b-navbar>
     <div>
-      <router-view :movies="movies" :byGenre="byGenre" :genres="genreSelect.options" />
+      <router-view name="search" :movies="movies" :byGenre="byGenre" :genres="genreSelect.options" />
+      <router-view />
     </div>
   </div>
 </template>

@@ -33,7 +33,9 @@ const routes = [
   {
     path: '/search',
     name: 'search',
-    component: Search,
+    components: {
+      search: Search
+    },
   },
   {
     path: '/movie/:id',
