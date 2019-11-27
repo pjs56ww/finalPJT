@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .models import User, Movie, Comment
-from .serializers import UserSerializer, MovieSerializer, CommentSerializer, CommentCreateSerializer
+from .models import User, Movie, Comment, Genre, Actor, Director
+from .serializers import UserSerializer, MovieSerializer, CommentSerializer, CommentCreateSerializer, GenreSerializer, ActorSerializer, DirectorSerializer
 from rest_framework.permissions import AllowAny
 
 
@@ -69,3 +69,27 @@ def comment_update_delete(request, comment_pk):
         comment.delete()
         # 요청에 성공했지만 컨텐츠는 없다는걸 알려주는 status code
         return Response(status=204)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def genredb(request, genre_pk):
+    genre = get_object_or_404(Genre, pk=genre_pk)
+    serializer = GenreSerializer(instance=genre)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def actordb(request, actor_pk):
+    actor = get_object_or_404(Actor, pk=actor_pk)
+    serializer = ActorSerializer(instance=actor)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def directordb(request, director_pk):
+    director = get_object_or_404(Director, pk=director_pk)
+    serializer = DirectorSerializer(instance=director)
+    return Response(serializer.data)
