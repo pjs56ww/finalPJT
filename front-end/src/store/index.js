@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // 상태 (data)
   state: {
-    token: null,
+    token: localStorage.getItem('token'),
   },
   // computed
   getters: {

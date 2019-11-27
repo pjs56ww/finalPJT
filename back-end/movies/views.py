@@ -37,9 +37,8 @@ def movie_detail(request, movie_pk):
 def comment_create(request, movie_pk):
     # view
     serializer = CommentCreateSerializer(data=request.data)
-    user_id = request.data.get('user_id')
     if serializer.is_valid(raise_exception=True):
-        serializer.save(movie_id=movie_pk, user_id=user_id)
+        serializer.save(movie_id=movie_pk, user_id=request.user.id)
     return Response(serializer.data)
 
 

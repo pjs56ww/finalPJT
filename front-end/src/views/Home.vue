@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div>
-      <b-img :src="bgImage" alt="" fluid />
+      <b-img-lazy :src="bgImage" alt="" fluid></b-img-lazy>
     </div>
     <MovieCarousel :movies="movies" />
   </div>
@@ -42,16 +42,7 @@ export default {
   methods: {
     // 사용자 로그인 유무를 확인하여 로그인 되어있지 않을 시 로그인 페이지로 보내겠다.
     checkLoggedIn() {
-      // // 1. 세션을 시작해서 
-      // this.$session.start()
-
-      // // 2. 'jwt' 가 있는지 확인하겠다.
-      // if (!this.$session.has('jwt')) {
-      //   // 없다면 로그인 페이지로 보내겠다.
-      //   router.push('/login')
-      // }
       if (!this.isLoggedIn) {
-        console.log(this.isLoggedIn)
         router.push('/')
       }
     },
@@ -59,7 +50,6 @@ export default {
       const SERVER_IP = process.env.VUE_APP_SERVER_IP
       axios.get(`${SERVER_IP}/api/v1/home/`)
         .then(response => {
-          // console.log(response)
           this.movies = response.data
         })
         .catch(error => {
@@ -91,12 +81,12 @@ export default {
     }
   },
   created() {
-    
+    this.getBgImg()
   },
   // Vue 가 화면에 그려지면 실행하는 함수
   mounted() {
+    this.checkLoggedIn()
     this.getMovie()
-    this.getBgImg()
   },
   watch: {
     isLoggedIn() {

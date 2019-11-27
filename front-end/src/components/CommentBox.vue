@@ -1,21 +1,24 @@
 <template>
   <div>
-    <CommentList :comments="comments" />
+    <CommentList :movie="movie" />
+    <comment-modal :movie="movie"/>
   </div>
 </template>
 
 <script>
 import CommentList from './CommentList'
+import CommentModal from './CommentModal'
 
 export default {
   name: 'CommentBox',
   components: {
     CommentList,
+    CommentModal,
   },
   props: {
-    comments: {
-      type: Array,
-      required: true,
+    movie: {
+      type: Object,
+      required: true
     }
   },
 }

@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <b-navbar toggleable="lg" variant="faded" type="light" id="nav" sticky>
-      <b-navbar-brand href="/home">ㅇㅎㅊㅊ</b-navbar-brand>
+      <b-navbar-brand v-if="isLoggedIn" href="/home">ㅇㅎㅊㅊ</b-navbar-brand>
+      <b-navbar-brand v-else href="/">ㅇㅎㅊㅊ</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -35,7 +36,7 @@
       </b-collapse>
       <b-collapse v-else id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <router-link to="/login">Login</router-link>
+          <b-nav-item @click.prevent="login" href="/login">로그인</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -161,10 +162,14 @@ export default {
     }
   },
   methods: {
+    login() {
+      router.push("/login")
+    },
     logout() {
       this.$session.destroy();
       this.$store.dispatch("logout");
-      router.push("/login");
+      router.push("/");
+      localStorage.removeItem('token')
     },
     getMovies() {
       const SERVER_IP = process.env.VUE_APP_SERVER_IP;
@@ -205,24 +210,7 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+body {
+  font-family: 'Raleway', sans-serif;
 }
 </style>

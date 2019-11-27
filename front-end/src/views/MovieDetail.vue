@@ -2,22 +2,21 @@
   <b-container fluid class="p-4 bg-dark">
     <b-img :src="movie.backgroundImage" fluid-grow alt="" />
     <b-img thumbnail :src="movie.image" fluid :width="200" />
-    <span>{{ movie.comments }}</span>
-    <!-- <CommentBox :comments="movie.comments" /> -->
+    <CommentBox :movie="movie" />
   </b-container>
 </template>
 
 <script>
 import axios from "axios"
 import { mapGetters } from 'vuex'
-// import CommentBox from './CommentBox'
+import CommentBox from '@/components/CommentBox'
 // import MoviePoster from "./MoviePoster"
 
 export default {
   name: "MovieDetail",
   props: {},
   components: {
-    // CommentBox,
+    CommentBox,
     // MoviePoster,
   },
   data() {
@@ -32,16 +31,19 @@ export default {
       'userId'
     ])
   },
-  created() {
+  // created() {
     
-  },
-  mounted() {
+  // },
+  created() {
     const SERVER_IP = process.env.VUE_APP_SERVER_IP
-    axios.get(`${SERVER_IP}/api/v1/movies/${this.$route.params.id}/`, {headers: this.options.headers})
-     .then(response => {
-       this.movie = response.data
-     })
-     .catch(error => error)
+    const headers = this.options.headers
+    axios.get(`${SERVER_IP}/api/v1/movies/${this.$route.params.id}/`, {headers: headers})
+      .then(response => {
+        this.movie = response.data
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 }
 </script>
