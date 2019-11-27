@@ -2,11 +2,6 @@ from rest_framework import serializers
 from .models import Movie, Comment, Genre, Actor, Director, User
 
 
-class MovieSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Movie
-        fields = ('id', 'movieCd', 'title', 'genres', 'directors', 'actors', 'description', 'image', 'openDt', 'audiAcc', 'score', 'backgroundImage')
-
 
 class FollowerSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user__username')
@@ -31,13 +26,20 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    movie = MovieSerializer()
+
     user = UserSerializer()
     
     class Meta:
         model = Comment
-        fields = ('id', 'content', 'score', 'movie', 'user',)
+        fields = ('id', 'content', 'score', 'user',)
         
+
+class MovieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        comments = CommentSerializer()
+        fields = ('id', 'movieCd', 'title', 'genres', 'directors', 'actors', 'description', 'image', 'openDt', 'audiAcc', 'score', 'backgroundImage', 'comments')
+
 
 class UserDetailSerializer(serializers.ModelSerializer):
     like_movies = MovieSerializer(many=True)
