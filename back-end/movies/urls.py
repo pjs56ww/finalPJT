@@ -19,4 +19,11 @@ urlpatterns = [
 
     # 검색
     path('search/', views.search),
+
+    # DB 전송
+    path('genredb/<int:genre_pk>/', views.genredb),
+
+    path('directordb/<int:director_pk>/', views.directordb),
+
+    path('actordb/<int:actor_pk>/', views.actordb),
 ]
