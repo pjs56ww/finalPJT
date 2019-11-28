@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     followers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='followings')
+    survey = models.BooleanField(default=False)
+    genre = models.CharField(max_length=150, default='')
 
 
 class Genre(models.Model):

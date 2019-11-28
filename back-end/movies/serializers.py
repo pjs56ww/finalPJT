@@ -14,11 +14,13 @@ class FollowerSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username')
+        fields = ('id', 'username', 'survey', 'genre', 'password')
 
     def create(self, validated_data):
         user = User(
             username=validated_data['username'],
+            survey = False,
+            genre = ''
         )
         user.set_password(validated_data['password'])
         user.save()
@@ -31,7 +33,7 @@ class CommentSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Comment
-        fields = ('id', 'content', 'score', 'user',)
+        fields = ('id', 'content', 'score', 'user')
 
 
 class ActorSerializer(serializers.ModelSerializer):
@@ -73,7 +75,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
     comments = UserCommentSerializer(many=True)
     class Meta:
         model = User
-        fields = ('id', 'username', 'like_movies', 'followers', 'comments')
+        fields = ('id', 'username', 'like_movies', 'followers', 'comments', 'survey', 'genre')
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
