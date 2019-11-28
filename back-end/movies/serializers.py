@@ -27,9 +27,14 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
+class UserSecuritySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'survey', 'genre')
+
 class CommentSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer()
+    user = UserSecuritySerializer()
     
     class Meta:
         model = Comment
@@ -61,7 +66,7 @@ class MovieSerializer(serializers.ModelSerializer):
 
 class UserCommentSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer()
+    user = UserSecuritySerializer()
     movie = MovieSerializer()
 
     class Meta:
