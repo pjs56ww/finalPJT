@@ -29,6 +29,11 @@ urlpatterns = [
 
     # User정보 전송
     path('userdetaildb/<int:user_pk>/', views.userdetaildb),
+
     # 모든 데이터 전송
     path('userdetaildb/', views.userdetaildball),
+    
+    # 설문 조사 데이터 전송
+    path('survey/', views.survey),
+
 ]

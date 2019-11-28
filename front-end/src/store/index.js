@@ -27,6 +27,9 @@ export default new Vuex.Store({
     userName(state) {
       return state.token ? jwtDecode(state.token).username : null
     },
+    user(state) {
+      return state.token ? jwtDecode(state.token) : null
+    },
   },
   // 상태를 변경하는 함수
   mutations: {

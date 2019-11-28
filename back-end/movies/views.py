@@ -107,3 +107,11 @@ def userdetaildball(request):
     users = User.objects.all()
     serializer = UserDetailSerializer(many=True, instance=users)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def survey(request):
+    serializer = UserDetailSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
