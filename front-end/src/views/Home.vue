@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <div>
-      <b-img-lazy :src="bgImage" alt="" fluid></b-img-lazy>
+    <div style=" text-align: center;">
+      <b-img-lazy :src="bgImage" alt="" fluid style="width:1000px; height: auto;"></b-img-lazy>
     </div>
     <MovieCarousel :movies="movies" />
   </div>

@@ -1,7 +1,8 @@
 <template>
   <b-container fluid class="p-4 bg-dark">
     <b-img :src="movie.backgroundImage" fluid-grow alt="" />
-    <b-img thumbnail :src="movie.image" fluid :width="200" />
+    <b-img class="thumbnail" thumbnail :src="movie.image" fluid :width="200" />
+    <p class="detail">asdfasdf</p>
     <CommentBox :movie="movie" />
   </b-container>
 </template>
@@ -49,4 +50,10 @@ export default {
 </script>
 
 <style>
+  /* .thumbnail {
+    display: inline;
+  } */
+  .detail {
+    display: inline;
+  }
 </style>

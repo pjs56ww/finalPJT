@@ -1,5 +1,5 @@
 <template>
-  <a @click.prevent="goDetail" href="/movie">
+  <a @click.prevent="goDetail" href="/movie" style=" text-align: center;">
     <MoviePoster :movie="movie" :width="200" :height="300"/>
   </a>
   <!-- <img :src="movie.image" :alt="movie.title" @click.prevent="goDetail" href="/movie" /> -->
@@ -38,5 +38,10 @@ export default {
 </script>
 
 <style>
-
+  .card-title {
+    height: 65px;
+  }
+  .card-text {
+    height: 40px;
+  }
 </style>
