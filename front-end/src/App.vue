@@ -41,8 +41,8 @@
       </b-collapse>
     </b-navbar>
     <div>
-      <router-view name="search" :movies="movies" :byGenre="byGenre" :genres="genreSelect.options" />
-      <router-view />
+      <router-view :movies="movies" :byGenre="byGenre" :genreSelect="genreSelect" />
+      <!-- <router-view /> -->
     </div>
   </div>
 </template>
@@ -53,11 +53,6 @@ import axios from "axios";
 
 export default {
   name: "App",
-  // data() {
-  //   return {
-  //     isLoggedIn: this.$session.has('jwt')
-  //   }
-  // },
   data() {
     return {
       searchKeyword: "",
@@ -156,6 +151,7 @@ export default {
   },
   // 최상위 App 컴퍼넌트가 렌더링 되면 실행하는 함수
   mounted() {
+    setInterval(() => this.title = 'ㅇㅎㅊㅊ')
     if (this.$session.has("jwt")) {
       const token = this.$session.get("jwt");
       this.$store.dispatch("login", token);
@@ -200,7 +196,8 @@ export default {
         .catch(error => {
           console.error(error)
         })
-    }
+    },
+    
   }
   // data 에 변화가 일어나는 시점에 실행하는 함수
   // updated() {

@@ -3,8 +3,8 @@
     <div v-if="byGenre">
       <p>{{ byGenre }} 장르의 검색 결과입니다.</p>
     </div>
-    <div v-if="movies.length">
-      <MovieList :movies="movies" :genres="genres" class="container mx-auto" />
+    <div v-if="movies && movies.length">
+      <MovieList :movies="movies" :genres="genreSelect.options" class="container mx-auto" />
     </div>
     <div v-else>
       <p>검색결과가 없습니다.</p>
@@ -26,8 +26,8 @@ export default {
     byGenre: {
       type: String
     },
-    genres: {
-      type: Array
+    genreSelect: {
+      type: Object
     }
   }
 }

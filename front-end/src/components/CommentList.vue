@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div v-if="movie.comments.length">
+    <div v-if="movie.comments && movie.comments.length">
       <div v-for="(comment, i) in movie.comments" :key="i">
         <p><star-rating :rating="comment.score/2"
           :read-only="true" :increment="0.5" :star-size="15"
-          :show-rating="false" :inline="true"></star-rating> {{comment.user.username}} : {{ comment.content }} {{ comment.score }}</p>
+          :show-rating="false" :inline="true"></star-rating> {{ comment.score }} | {{comment.user.username}} : {{ comment.content }}</p>
       </div>
     </div>
-    <div v-else>없다. 코멘트</div>
+    <div v-else><h4>첫 번째 평점을 남겨보세요!</h4></div>
   </div>
 </template>
 
@@ -27,17 +27,10 @@ export default {
   },
   data() {
     return {
-      comments: []
     }
   },
   methods: {
-    getComments() {
-      this.comments = this.movie.comments
-    }
   },
-  created() {
-    this.getComments()
-  }
 }
 </script>
 
